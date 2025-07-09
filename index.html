@@ -3,229 +3,200 @@
 <head>
   <meta charset="UTF-8" />
   <title>ISAAH 2025 Attendee Card Generator</title>
+
   <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #e0e5ec;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+    /* ---------- Page layout ---------- */
+    body{
+      margin:0;
+      padding:20px;
+      font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+      background:#e0e5ec;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:20px;
     }
-    .inputs {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
+    .inputs{
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-bottom:20px;
     }
-    .inputs input[type="text"] {
-      padding: 10px 15px;
-      font-size: 16px;
-      width: 250px;
-      border-radius: 6px;
-      border: 1.5px solid #003366;
+    .inputs input[type="text"]{
+      width:250px;
+      padding:10px 15px;
+      font-size:16px;
+      border:1.5px solid #003366;
+      border-radius:6px;
     }
-    .inputs input[type="file"] {
-      padding: 5px;
-      border-radius: 6px;
-      border: 1.5px solid #003366;
-      background: white;
-      color: #003366;
-      cursor: pointer;
+    .inputs input[type="file"]{
+      padding:5px;
+      cursor:pointer;
+      border:1.5px solid #003366;
+      border-radius:6px;
+      background:#fff;
+      color:#003366;
     }
-    button {
-      padding: 12px 30px;
-      background-color: #003366;
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    button{
+      padding:12px 30px;
+      font-size:16px;
+      color:#fff;
+      background:#003366;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
     }
-    button:hover {
-      background-color: #00509e;
+    button:hover{background:#00509e;}
+
+    /* ---------- Card ---------- */
+    #card{
+      width:1080px;
+      height:1350px;
+      max-width:100%;
+      background:#243a4c;                /* solid navy */
+      color:#fff;
+      padding:80px 60px 60px;
+      box-sizing:border-box;
+      border-radius:20px;
+      box-shadow:0 6px 25px rgba(0,0,0,.5);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      text-align:center;
+      position:relative;
+      user-select:none;
+      overflow:hidden;
+      font-weight:500;
     }
 
-    /* Card styles */
-    #card {
-      width: 1080px;
-      height: 1350px;
-      background-color: #243a4c;
-      color: white;
-      padding: 80px 60px 60px 60px;
-      box-sizing: border-box;
-      text-align: center;
-      border-radius: 20px;
-      position: relative;
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      font-weight: 500;
-      box-shadow: 0 6px 25px rgba(0,0,0,0.5);
-      max-width: 100%;
-      overflow: hidden;
+    /* ---------- Content inside card ---------- */
+    #card .photo-container{
+      width:240px;
+      height:240px;
+      margin:0 auto 24px;
+      border-radius:50%;
+      overflow:hidden;
+      border:6px solid #f4cc70;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#ffffff33;
     }
+    #card .photo-container img{width:100%;height:100%;object-fit:cover;}
 
-    /* Watermark background */
-    #card::before {
-      content: "";
-      background-image: url('https://i.postimg.cc/bvtKK92g/Minimalist-Square-Photo-Instagram-Post-20.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 60%;
-      opacity: 0.2;
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      border-radius: 20px;
+    #card .attendee-name{
+      font-size:56px;
+      font-weight:700;
+      margin:8px 0 4px;
+      text-shadow:0 0 8px #000c;
     }
-
-    /* Make content appear above background */
-    #card > * {
-      position: relative;
-      z-index: 1;
+    #card .position{
+      font-size:36px;
+      margin-bottom:40px;
+      opacity:.9;
+      text-shadow:0 0 6px #000a;
     }
-
-    #card .photo-container {
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 6px solid #f4cc70;
-      margin: 0 auto 24px auto;
-      background-color: #ffffff33;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    #card .title{
+      font-size:52px;
+      font-weight:700;
+      color:#f4cc70;
+      margin-bottom:24px;
+      text-shadow:0 0 10px #f4cc70aa;
     }
-    #card .photo-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    #card .conference-title{
+      font-size:32px;
+      line-height:1.3;
+      margin-bottom:40px;
+      font-weight:600;
+      white-space:pre-line;
+      text-shadow:0 0 6px #000a;
     }
-    #card .attendee-name {
-      font-size: 56px;
-      font-weight: 700;
-      margin: 8px 0 4px 0;
-      text-shadow: 0 0 8px #000000cc;
+    #card .date{
+      font-size:36px;
+      font-weight:600;
+      margin-bottom:12px;
+      text-shadow:0 0 6px #000a;
     }
-    #card .position {
-      font-size: 36px;
-      opacity: 0.9;
-      margin-bottom: 40px;
-      text-shadow: 0 0 6px #000000aa;
+    #card .link{
+      font-size:24px;
+      color:#a5d8ff;
+      margin-bottom:40px;
+      word-break:break-word;
+      text-shadow:0 0 4px #003366cc;
     }
-    #card .title {
-      font-size: 52px;
-      color: #f4cc70;
-      font-weight: 700;
-      margin-bottom: 24px;
-      text-shadow: 0 0 10px #f4cc70aa;
-    }
-    #card .conference-title {
-      font-size: 32px;
-      line-height: 1.3;
-      margin-bottom: 40px;
-      font-weight: 600;
-      text-shadow: 0 0 6px #000000aa;
-      white-space: pre-line;
-    }
-    #card .date {
-      font-size: 36px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      text-shadow: 0 0 6px #000000aa;
-    }
-    #card .link {
-      font-size: 24px;
-      color: #a5d8ff;
-      margin-bottom: 40px;
-      text-shadow: 0 0 4px #003366cc;
-      word-break: break-word;
-    }
-    #card .footer {
-      font-size: 24px;
-      opacity: 0.6;
-      font-weight: 500;
-      text-shadow: 0 0 4px #003366cc;
+    #card .footer{
+      font-size:24px;
+      opacity:.6;
+      font-weight:500;
+      text-shadow:0 0 4px #003366cc;
     }
   </style>
 </head>
+
 <body>
 
+  <!-- User inputs -->
   <div class="inputs">
-    <input type="text" id="nameInput" placeholder="Enter your full name" />
-    <input type="text" id="positionInput" placeholder="Enter your position" />
-    <input type="file" id="photoInput" accept="image/*" />
+    <input id="nameInput"     type="text" placeholder="Enter your full name">
+    <input id="positionInput" type="text" placeholder="Enter your position">
+    <input id="photoInput"    type="file" accept="image/*">
   </div>
 
   <button id="downloadBtn">Download Card as Image</button>
 
+  <!-- Card preview -->
   <div id="card">
-    <div class="photo-container" id="photoContainer">
-      <img src="https://via.placeholder.com/240?text=Photo" alt="Attendee Photo" id="photoPreview" />
+    <div class="photo-container">
+      <img id="photoPreview" src="https://via.placeholder.com/240?text=Photo" alt="Attendee photo">
     </div>
 
-    <div class="attendee-name" id="attendeeName">Your Name Here</div>
-    <div class="position" id="attendeePosition">Your Position Here</div>
-    
+    <div id="attendeeName"   class="attendee-name">Your Name Here</div>
+    <div id="attendeePosition" class="position">Your Position Here</div>
+
     <div class="title">I AM ATTENDING</div>
-    
+
     <div class="conference-title">
       BEAUTY BEYOND BOUNDARIES:<br>
-      CURRENT PERSPECTIVES ON AESTHETICS AND ANTI-AGING MEDICINE
+      CURRENT PERSPECTIVES ON AESTHETICS AND ANTI‑AGING MEDICINE
     </div>
-    <div class="date">September 20–21, 2025</div>
+
+    <div class="date">September 20–21, 2025</div>
     <div class="link">www.isaah.org/mainconference-events</div>
-    <div class="footer">#ISAAH2025 #BeautyBeyondBoundaries</div>
+    <div class="footer">#ISAAH2025  #BeautyBeyondBoundaries</div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
-    const nameInput = document.getElementById('nameInput');
+    /* live text + photo updates */
+    const nameInput     = document.getElementById('nameInput');
     const positionInput = document.getElementById('positionInput');
-    const attendeeName = document.getElementById('attendeeName');
-    const attendeePosition = document.getElementById('attendeePosition');
-    const photoInput = document.getElementById('photoInput');
-    const photoPreview = document.getElementById('photoPreview');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const card = document.getElementById('card');
+    const attendeeName  = document.getElementById('attendeeName');
+    const attendeePos   = document.getElementById('attendeePosition');
+    const photoInput    = document.getElementById('photoInput');
+    const photoPreview  = document.getElementById('photoPreview');
 
-    nameInput.addEventListener('input', () => {
-      attendeeName.textContent = nameInput.value || 'Your Name Here';
-    });
-    positionInput.addEventListener('input', () => {
-      attendeePosition.textContent = positionInput.value || 'Your Position Here';
-    });
+    nameInput.oninput     = () => attendeeName.textContent = nameInput.value || 'Your Name Here';
+    positionInput.oninput = () => attendeePos.textContent  = positionInput.value || 'Your Position Here';
 
-    photoInput.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        photoPreview.src = event.target.result;
-      }
+    photoInput.onchange = e=>{
+      const file=e.target.files[0]; if(!file) return;
+      const reader=new FileReader();
+      reader.onload = ev => photoPreview.src = ev.target.result;
       reader.readAsDataURL(file);
-    });
+    };
 
-    downloadBtn.addEventListener('click', () => {
-      const scale = 2;
-      html2canvas(card, {
-        scale: scale,
-        backgroundColor: null,
-      }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'ISAAH2025_AttendeeCard.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      });
-    });
+    /* download as PNG */
+    document.getElementById('downloadBtn').onclick = () =>{
+      html2canvas(document.getElementById('card'),{scale:2,backgroundColor:null})
+        .then(canvas=>{
+          const link=document.createElement('a');
+          link.download='ISAAH2025_AttendeeCard.png';
+          link.href=canvas.toDataURL('image/png');
+          link.click();
+        });
+    };
   </script>
 </body>
 </html>
