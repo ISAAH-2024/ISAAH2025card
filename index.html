@@ -67,7 +67,31 @@
       font-weight: 500;
       box-shadow: 0 6px 25px rgba(0,0,0,0.5);
       max-width: 100%;
+      overflow: hidden;
     }
+
+    /* Watermark background */
+    #card::before {
+      content: "";
+      background-image: url('https://i.postimg.cc/bvtKK92g/Minimalist-Square-Photo-Instagram-Post-20.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 60%;
+      opacity: 0.2;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      border-radius: 20px;
+    }
+
+    /* Make content appear above background */
+    #card > * {
+      position: relative;
+      z-index: 1;
+    }
+
     #card .photo-container {
       width: 240px;
       height: 240px;
@@ -110,7 +134,7 @@
       margin-bottom: 40px;
       font-weight: 600;
       text-shadow: 0 0 6px #000000aa;
-      white-space: pre-line; /* keep line breaks */
+      white-space: pre-line;
     }
     #card .date {
       font-size: 36px;
